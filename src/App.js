@@ -18,11 +18,13 @@ function App() {
     <div className="App">
       {posts.map(post => (
         <div className="flex-container" key={post.data.id}>
-          <img
-            className="thumbnail"
-            src={post.data.thumbnail}
-            alt="thumbnail"
-          />
+          {post.data.thumbnail_height && post.data.thumbnail_width ? (
+            <img
+              className="thumbnail"
+              src={post.data.thumbnail}
+              alt="thumbnail"
+            />
+          ) : null}
           <h4>{post.data.title}</h4>
         </div>
       ))}
