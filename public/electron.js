@@ -11,6 +11,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 900,
     height: 680,
+    webPreferences: { webSecurity: false },
     icon: __dirname + "/favicon.ico"
   });
   mainWindow.loadURL(
