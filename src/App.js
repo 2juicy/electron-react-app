@@ -12,7 +12,7 @@ export default function App() {
     (async function() {
       try {
         let data = await fetch(
-          "https://reddit.com/r/oddlysatisfying.json?limit=100&raw_json=1"
+          "https://reddit.com/r/oddlysatisfying.json?limit=50&raw_json=1"
         );
         let res = await data.json();
         setPosts(res.data.children);
@@ -23,7 +23,13 @@ export default function App() {
   }, []);
 
   const showImage = image => {
-    ipcRenderer.send("toggle-image", image.preview.images[0].source.url);
+    if (image.media_embed.content) {
+      ipcRenderer.send("toggle-video", image.media_embed.content);
+    } else if (image.preview) {
+      ipcRenderer.send("toggle-image", image.preview.images[0].source.url);
+    } else if (image.url) {
+      ipcRenderer.send("toggle-image", image.url);
+    }
   };
 
   return (
