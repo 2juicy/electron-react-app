@@ -37,7 +37,7 @@ function createWindow() {
 
   mainWindow.on("closed", () => (mainWindow = null));
   imageWindow.on("close", e => {
-    e.preventdefault();
+    e.preventDefault();
     imageWindow.hide();
   });
 }
@@ -58,4 +58,5 @@ app.on("activate", () => {
 
 ipcMain.on("toggle-image", (event, arg) => {
   imageWindow.show();
+  imageWindow.webContents.send("image", arg);
 });

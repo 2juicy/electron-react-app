@@ -22,8 +22,8 @@ export default function App() {
     })();
   }, []);
 
-  const showImage = () => {
-    ipcRenderer.send("toggle-image");
+  const showImage = image => {
+    ipcRenderer.send("toggle-image", image);
   };
 
   return (
@@ -33,12 +33,11 @@ export default function App() {
         <div
           className="flex-container"
           key={post.data.id}
-          onClick={() => showImage()}
+          onClick={() => showImage(post.data.preview.images[0].source.url)}
         >
-          {post.data.preview &&
-          post.data.preview.images[0].source.url.substr(0, 4) === "http" ? (
+          {post.data.thumbnail.substr(0, 4) === "http" ? (
             <div className="thumbnail">
-              <Thumbnail thumbnail={post.data.preview.images[0].source.url} />
+              <Thumbnail thumbnail={post.data.thumbnail} />
             </div>
           ) : null}
           <h4>{post.data.title}</h4>
