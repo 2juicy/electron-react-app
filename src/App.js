@@ -6,25 +6,28 @@ function App() {
 
   useEffect(() => {
     (async function() {
-      let response = await fetch("https://reddit.com/r/oddlysatisfying.json");
-      let json = await response.json();
-      setPosts(json.data.children);
+      try {
+        let data = await fetch("https://reddit.com/r/oddlysatisfying.json");
+        let res = await data.json();
+        setPosts(res.data.children);
+      } catch (err) {
+        console.log("Failed to fetch or no posts found");
+      }
     })();
   }, []);
 
-  console.log(posts);
-
   return (
     <div className="App">
+      <h1>Reddit Posts</h1>
       {posts.map(post => (
         <div className="flex-container" key={post.data.id}>
-          {post.data.thumbnail_height && post.data.thumbnail_width ? (
+          {post.data.thumbnail_height && (
             <img
               className="thumbnail"
               src={post.data.thumbnail}
               alt="thumbnail"
             />
-          ) : null}
+          )}
           <h4>{post.data.title}</h4>
         </div>
       ))}
