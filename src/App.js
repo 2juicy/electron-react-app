@@ -27,7 +27,12 @@ function App() {
       {posts.map(post => (
         <div className="flex-container" key={post.data.id}>
           {post.data.thumbnail_height && (
-            <Thumbnail thumbnail={post.data.thumbnail} />
+            <div className="thumbnail">
+              <Thumbnail
+                thumbnail={post.data.thumbnail}
+                embed={post.data.media_embed.content}
+              />
+            </div>
           )}
           <h4>{post.data.title}</h4>
         </div>
