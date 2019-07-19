@@ -6,6 +6,7 @@ const path = require("path");
 const isDev = require("electron-is-dev");
 
 let mainWindow;
+let imageWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -14,11 +15,24 @@ function createWindow() {
     webPreferences: { webSecurity: false },
     icon: __dirname + "/favicon.ico"
   });
+  imageWindow = new BrowserWindow({
+    width: 600,
+    height: 600,
+    parent: mainWindow,
+    show: true
+  });
+
   mainWindow.loadURL(
     isDev
       ? "http://localhost:3000"
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
+  imageWindow.loadURL(
+    isDev
+      ? "http://localhost:3000/image"
+      : `file://${path.join(__dirname, "../build/index.html")}`
+  );
+
   mainWindow.on("closed", () => (mainWindow = null));
 }
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Thumbnail from "./components/Thumbnail/Thumbnail";
 import "./App.css";
 
-function App() {
+export default function App() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -36,5 +36,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
