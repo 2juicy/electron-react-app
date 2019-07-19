@@ -9,7 +9,7 @@ function App() {
     (async function() {
       try {
         let data = await fetch(
-          "https://reddit.com/r/oddlysatisfying.json?raw_json=1"
+          "https://reddit.com/r/oddlysatisfying.json?limit=100&raw_json=1"
         );
         let res = await data.json();
         setPosts(res.data.children);
@@ -24,12 +24,10 @@ function App() {
       <h1>Reddit Posts</h1>
       {posts.map(post => (
         <div className="flex-container" key={post.data.id}>
-          {post.data.thumbnail.substr(0, 4) === "http" ? (
+          {post.data.preview &&
+          post.data.preview.images[0].source.url.substr(0, 4) === "http" ? (
             <div className="thumbnail">
-              <Thumbnail
-                thumbnail={post.data.thumbnail}
-                embed={post.data.media_embed.content}
-              />
+              <Thumbnail thumbnail={post.data.preview.images[0].source.url} />
             </div>
           ) : null}
           <h4>{post.data.title}</h4>
