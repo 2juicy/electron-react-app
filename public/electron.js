@@ -17,8 +17,8 @@ function createWindow() {
     icon: __dirname + "/favicon.ico"
   });
   imageWindow = new BrowserWindow({
-    width: 600,
-    height: 600,
+    width: 700,
+    height: 700,
     parent: mainWindow,
     show: false,
     webPreferences: { nodeIntegration: true }
