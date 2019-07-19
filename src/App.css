@@ -13,10 +13,3 @@
 .flex-container:hover {
   background-color: rgba(0, 0, 0, 0.25);
 }
-
-.thumbnail {
-  height: 70px;
-  width: auto;
-  border-radius: 25px;
-  margin-right: 16px;
-}
