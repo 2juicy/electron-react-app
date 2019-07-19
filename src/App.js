@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Thumbnail from "./components/Thumbnail/Thumbnail";
 import "./App.css";
 
+const electron = window.require("electron");
+const ipcRenderer = electron.ipcRenderer;
+
 export default function App() {
   const [posts, setPosts] = useState([]);
 
@@ -19,11 +22,19 @@ export default function App() {
     })();
   }, []);
 
+  const showImage = () => {
+    ipcRenderer.send("toggle-image");
+  };
+
   return (
     <div className="App">
       <h1>Reddit Posts</h1>
       {posts.map(post => (
-        <div className="flex-container" key={post.data.id}>
+        <div
+          className="flex-container"
+          key={post.data.id}
+          onClick={() => showImage()}
+        >
           {post.data.preview &&
           post.data.preview.images[0].source.url.substr(0, 4) === "http" ? (
             <div className="thumbnail">

@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Image() {
-  return <div />;
+  return <div>Image Here</div>;
 }

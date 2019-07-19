@@ -1,4 +1,5 @@
 const electron = require("electron");
+const ipcMain = electron.ipcMain;
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
@@ -12,14 +13,15 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 900,
     height: 680,
-    webPreferences: { webSecurity: false },
+    webPreferences: { webSecurity: false, nodeIntegration: true },
     icon: __dirname + "/favicon.ico"
   });
   imageWindow = new BrowserWindow({
     width: 600,
     height: 600,
     parent: mainWindow,
-    show: true
+    show: false,
+    webPreferences: { nodeIntegration: true }
   });
 
   mainWindow.loadURL(
@@ -34,6 +36,10 @@ function createWindow() {
   );
 
   mainWindow.on("closed", () => (mainWindow = null));
+  imageWindow.on("close", e => {
+    e.preventdefault();
+    imageWindow.hide();
+  });
 }
 
 app.on("ready", createWindow);
@@ -48,4 +54,8 @@ app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+ipcMain.on("toggle-image", (event, arg) => {
+  imageWindow.show();
 });
