@@ -19,21 +19,19 @@ function App() {
     })();
   }, []);
 
-  console.log(posts);
-
   return (
     <div className="App">
       <h1>Reddit Posts</h1>
       {posts.map(post => (
         <div className="flex-container" key={post.data.id}>
-          {post.data.thumbnail_height && (
+          {post.data.thumbnail.substr(0, 4) === "http" ? (
             <div className="thumbnail">
               <Thumbnail
                 thumbnail={post.data.thumbnail}
                 embed={post.data.media_embed.content}
               />
             </div>
-          )}
+          ) : null}
           <h4>{post.data.title}</h4>
         </div>
       ))}
