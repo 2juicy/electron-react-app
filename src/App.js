@@ -25,7 +25,7 @@ export default function App() {
   const showImage = image => {
     if (image.media_embed.content) {
       ipcRenderer.send("toggle-video", image.media_embed.content);
-    } else if (image.preview) {
+    } else if (image.preview.images) {
       ipcRenderer.send("toggle-image", image.preview.images[0].source.url);
     } else if (image.url) {
       ipcRenderer.send("toggle-image", image.url);
