@@ -18,6 +18,7 @@ function createWindow() {
     icon: __dirname + "/favicon.ico"
   });
   imageWindow = new BrowserWindow({
+    backgroundColor: "#000000",
     width: 750,
     height: 750,
     parent: mainWindow,
@@ -25,8 +26,9 @@ function createWindow() {
     webPreferences: { nodeIntegration: true }
   });
   videoWindow = new BrowserWindow({
-    width: 750,
-    height: 750,
+    backgroundColor: "#000000",
+    width: 600,
+    height: 600,
     parent: mainWindow,
     show: false,
     webPreferences: { nodeIntegration: true }

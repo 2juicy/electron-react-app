@@ -10,25 +10,23 @@ export default function App() {
 
   useEffect(() => {
     (async function() {
-      try {
-        let data = await fetch(
-          "https://reddit.com/r/oddlysatisfying.json?limit=50&raw_json=1"
-        );
-        let res = await data.json();
-        setPosts(res.data.children);
-      } catch (err) {
-        console.log("Failed to fetch or no posts found");
-      }
-    })();
+      let data = await fetch(
+        "https://reddit.com/r/oddlysatisfying.json?limit=50&raw_json=1"
+      );
+      let res = await data.json();
+      setPosts(res.data.children);
+    })().catch(err => console.error(err));
   }, []);
 
-  const showImage = image => {
-    if (image.media_embed.content) {
-      ipcRenderer.send("toggle-video", image.media_embed.content);
-    } else if (image.preview.images) {
-      ipcRenderer.send("toggle-image", image.preview.images[0].source.url);
-    } else if (image.url) {
-      ipcRenderer.send("toggle-image", image.url);
+  const showImage = data => {
+    if (data.media_embed.content) {
+      ipcRenderer.send("toggle-video", data.media_embed.content);
+    } else if (data.preview.reddit_video_preview) {
+      window.open(data.preview.reddit_video_preview.fallback_url);
+    } else if (data.preview.images) {
+      ipcRenderer.send("toggle-image", data.preview.images[0].source.url);
+    } else if (data.url) {
+      ipcRenderer.send("toggle-image", data.url);
     }
   };
 
