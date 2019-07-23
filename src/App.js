@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Thumbnail from "./components/Thumbnail/Thumbnail";
+import Post from "./components/Post/Post";
 import "./App.css";
-
-const electron = window.require("electron");
-const ipcRenderer = electron.ipcRenderer;
 
 export default function App() {
   const [posts, setPosts] = useState([]);
@@ -18,35 +15,10 @@ export default function App() {
     })().catch(err => console.error(err));
   }, []);
 
-  const showImage = data => {
-    if (data.media_embed.content) {
-      ipcRenderer.send("toggle-video", data.media_embed.content);
-    } else if (data.preview.reddit_video_preview) {
-      window.open(data.preview.reddit_video_preview.fallback_url);
-    } else if (data.preview.images) {
-      ipcRenderer.send("toggle-image", data.preview.images[0].source.url);
-    } else if (data.url) {
-      ipcRenderer.send("toggle-image", data.url);
-    }
-  };
-
   return (
     <div className="App">
       <h1>Reddit Posts</h1>
-      {posts.map(post => (
-        <div
-          className="flex-container"
-          key={post.data.id}
-          onClick={() => showImage(post.data)}
-        >
-          {post.data.thumbnail.substr(0, 4) === "http" ? (
-            <div className="thumbnail">
-              <Thumbnail thumbnail={post.data.thumbnail} />
-            </div>
-          ) : null}
-          <h4>{post.data.title}</h4>
-        </div>
-      ))}
+      <Post posts={posts} />
     </div>
   );
 }
