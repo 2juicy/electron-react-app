@@ -8,7 +8,7 @@ export default function App() {
   useEffect(() => {
     (async function() {
       let data = await fetch(
-        "https://reddit.com/r/oddlysatisfying.json?limit=50&raw_json=1"
+        "https://reddit.com/r/aww.json?limit=50&raw_json=1"
       );
       let res = await data.json();
       setPosts(res.data.children);

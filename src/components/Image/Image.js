@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const electron = window.require("electron");
-const ipcRenderer = electron.ipcRenderer;
+const { ipcRenderer } = window.require("electron");
 
 export default function Image() {
   const [image, setImage] = useState();

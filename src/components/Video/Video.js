@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import parse from "html-react-parser";
 
-const electron = window.require("electron");
-const ipcRenderer = electron.ipcRenderer;
+const { ipcRenderer } = window.require("electron");
 
 export default function Video() {
   const [video, setVideo] = useState();
