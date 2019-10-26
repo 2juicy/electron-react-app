@@ -3,16 +3,16 @@ import Thumbnail from "../Thumbnail/Thumbnail";
 
 const { ipcRenderer } = window.require("electron");
 
-export default function Post({ posts }) {
+export default function Post({ posts, showModal }) {
   const showImage = data => {
     if (data.media_embed.content) {
       ipcRenderer.send("toggle-video", data.media_embed.content);
     } else if (data.preview.reddit_video_preview) {
       window.open(data.preview.reddit_video_preview.fallback_url);
     } else if (data.preview.images) {
-      ipcRenderer.send("toggle-image", data.preview.images[0].source.url);
+      showModal(data.preview.images[0].source.url);
     } else if (data.url) {
-      ipcRenderer.send("toggle-image", data.url);
+      showModal(data.url);
     }
   };
 

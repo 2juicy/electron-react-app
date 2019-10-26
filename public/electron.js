@@ -19,8 +19,6 @@ function createWindow() {
   });
   imageWindow = new BrowserWindow({
     backgroundColor: "#000000",
-    width: 750,
-    height: 750,
     parent: mainWindow,
     show: false,
     webPreferences: { nodeIntegration: true }
