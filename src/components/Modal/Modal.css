@@ -8,10 +8,11 @@
   overflow: auto;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
+  text-align: center;
 }
 
 .modal-content {
-  margin: 0 auto;
+  margin: 0;
   border: 1px solid black;
   height: 100vh;
 }
