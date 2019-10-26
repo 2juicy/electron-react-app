@@ -7,7 +7,6 @@ const path = require("path");
 const isDev = require("electron-is-dev");
 
 let mainWindow;
-let imageWindow;
 let videoWindow;
 
 function createWindow() {
@@ -17,12 +16,7 @@ function createWindow() {
     webPreferences: { webSecurity: false, nodeIntegration: true },
     icon: __dirname + "/favicon.ico"
   });
-  imageWindow = new BrowserWindow({
-    backgroundColor: "#000000",
-    parent: mainWindow,
-    show: false,
-    webPreferences: { nodeIntegration: true }
-  });
+
   videoWindow = new BrowserWindow({
     backgroundColor: "#000000",
     width: 600,
@@ -37,11 +31,6 @@ function createWindow() {
       ? "http://localhost:3000"
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
-  imageWindow.loadURL(
-    isDev
-      ? "http://localhost:3000/image"
-      : `file://${path.join(__dirname, "../build/index.html")}`
-  );
   videoWindow.loadURL(
     isDev
       ? "http://localhost:3000/video"
@@ -49,10 +38,6 @@ function createWindow() {
   );
 
   mainWindow.on("closed", () => (mainWindow = null));
-  imageWindow.on("close", e => {
-    e.preventDefault();
-    imageWindow.hide();
-  });
   videoWindow.on("close", e => {
     e.preventDefault();
     videoWindow.hide();
@@ -71,11 +56,6 @@ app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
   }
-});
-
-ipcMain.on("toggle-image", (event, arg) => {
-  imageWindow.show();
-  imageWindow.webContents.send("image", arg);
 });
 
 ipcMain.on("toggle-video", (event, arg) => {
