@@ -10,9 +10,9 @@ export default function Post({ posts, showModal }) {
     } else if (data.preview.reddit_video_preview) {
       window.open(data.preview.reddit_video_preview.fallback_url);
     } else if (data.preview.images) {
-      showModal(data.preview.images[0].source.url);
+      showModal(data.preview.images[0].source.url, data.title);
     } else if (data.url) {
-      showModal(data.url);
+      showModal(data.url, data.title);
     }
   };
 

@@ -6,11 +6,11 @@ import "./App.css";
 export default function App() {
   const [posts, setPosts] = useState([]);
   const [modal, setModal] = useState(false);
-  const [img, setImg] = useState();
+  const [modalContent, setModalContent] = useState([]);
 
-  function showModal(img) {
+  function showModal(img, title) {
     setModal(true);
-    setImg(img);
+    setModalContent([img, title]);
   }
 
   useEffect(() => {
@@ -29,7 +29,12 @@ export default function App() {
     <div className="App">
       <h1>Reddit Posts</h1>
       <Post posts={posts} showModal={showModal} />
-      <Modal modal={modal} img={img} close={() => setModal(false)} />
+      <Modal
+        modal={modal}
+        img={modalContent[0]}
+        title={modalContent[1]}
+        close={() => setModal(false)}
+      />
     </div>
   );
 }

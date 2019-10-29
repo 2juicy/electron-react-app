@@ -8,12 +8,18 @@
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.6);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.modal-content {
+.modal > h4 {
+  color: white;
+  text-shadow: 1px 1px 1px black;
+}
+
+.modal-img {
   margin: 0;
-  max-height: 99vh;
-  max-width: 99vw;
+  max-height: 85vh;
+  max-width: 95vw;
 }
