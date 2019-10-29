@@ -8,7 +8,7 @@ export default function Modal({ modal, close, img }) {
 
   return (
     <div className="modal" onClick={close}>
-      <img src={img} className="modal-content" alt="img" />;
+      <img src={img} className="modal-content" alt="img" />
     </div>
   );
 }
