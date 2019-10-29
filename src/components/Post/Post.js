@@ -5,14 +5,18 @@ const { ipcRenderer } = window.require("electron");
 
 export default function Post({ posts, showModal }) {
   const showImage = data => {
-    if (data.media_embed.content) {
-      ipcRenderer.send("toggle-video", data.media_embed.content);
-    } else if (data.preview.reddit_video_preview) {
-      window.open(data.preview.reddit_video_preview.fallback_url);
-    } else if (data.preview.images) {
-      showModal(data.preview.images[0].source.url, data.title);
-    } else if (data.url) {
-      showModal(data.url, data.title);
+    if (data.thumbnail !== "self") {
+      if (data.media_embed.content) {
+        ipcRenderer.send("toggle-video", data.media_embed.content);
+      } else if (data.preview.reddit_video_preview) {
+        window.open(data.preview.reddit_video_preview.fallback_url);
+      } else if (data.preview.images) {
+        showModal(data.preview.images[0].source.url, data.title);
+      } else if (data.url) {
+        showModal(data.url, data.title);
+      }
+    } else {
+      window.open(`https://reddit.com${data.permalink}`);
     }
   };
 

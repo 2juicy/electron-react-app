@@ -18,7 +18,7 @@ function createWindow() {
   });
 
   videoWindow = new BrowserWindow({
-    backgroundColor: "#000000",
+    backgroundColor: "white",
     width: 600,
     height: 600,
     parent: mainWindow,
